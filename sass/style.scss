@@ -1,0 +1,29 @@
+// style.scss
+
+// =================================================
+// 1. @use を一番上にまとめる
+// =================================================
+@use 'base/variables' as *;
+@use 'base/mixins' as *;
+@use 'base/base';
+@use 'common/header';
+@use 'common/footer';
+@use 'components/button';
+@use 'components/card';
+@use 'page/top';
+@use 'page/lesson-page';
+@use 'page/commitment-page';
+@use 'page/pricing-page';
+@use 'page/journal-page';
+@use 'page/login-page';
+
+
+// =================================================
+// 2. @import は、すべての@use の後に記述する
+// =================================================
+@import 'https://unpkg.com/modern-css-reset/dist/reset.min.css';
+
+// =================================================
+// 3. その他のスタイル（もしあれば）
+// =================================================
+// もし body { ... } などの記述がこのファイルにあれば、ここ以降に書きます。

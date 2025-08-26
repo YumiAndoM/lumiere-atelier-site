@@ -1,0 +1,123 @@
+@use '../base/mixins' as *;
+@use '../base/variables' as *;
+
+/*=================================
+_login-page
+=================================*/
+
+.login-main {
+	padding-top: 20rem;
+	padding-bottom: 14rem;
+}
+
+.login {
+	&-section {
+		background-color: $baseColor;
+		width: 50%;
+		max-width: 600px;
+		@include box-shadow;
+		padding: 6rem;
+		border-radius: 20px;
+		margin: 0 auto;
+
+		@include max(m) {
+			width: 90%;
+			padding: 4rem 2rem;
+		}
+
+		h2 {
+			margin-bottom: 3rem;
+		}
+	}
+
+	&-input-form {
+		position: relative;
+		border: 1px solid $mainColor;
+		
+		// line-height: 4rem;
+		border-radius: 10px;
+		margin-bottom: 3rem;
+		padding: 0.5rem;
+
+		label {
+			position: absolute;
+			inset: 2rem auto auto 1rem;
+			cursor: text; 
+			transition: all 0.2s ease-out; 
+		}
+
+		input {
+			width: 100%;
+			height: 4rem;
+			border: none;
+			background-color: transparent;
+
+			&:focus {
+				outline: none;
+			}
+
+			&:focus + label,
+			&:not(:placeholder-shown) + label {
+				inset:-1rem auto auto 1rem;
+				padding: 0.2rem 0.2rem;
+				background-color: $baseColor;
+			}
+		}
+	}
+
+	&-button {
+		display: block;
+		width: 100%;
+		// width: fit-content;
+		padding: 1rem;
+		text-align: center;
+		background-color: $mainColor;
+		border-radius: 100px;
+		color: $baseColor;
+		font-weight: bold;
+		border: 1px solid $mainColor;
+		transition: 0.4s ease-in-out;
+
+		&:hover {
+			background-color: $baseColor;
+			color: $mainColor;
+			transition: 0.4s ease-in-out;
+		}
+	}
+
+	&-cta {
+		display: block;
+		width: 100%;
+		// width: fit-content;
+		padding: 1rem;
+		text-align: center;
+		background-color: $accentColor;
+		border-radius: 100px;
+		color: $baseColor;
+		font-weight: bold;
+		border: 1px solid $accentColor;
+		transition: 0.4s ease-in-out;
+
+		&:hover {
+			background-color: $baseColor;
+			color: $accentColor;
+			transition: 0.4s ease-in-out;
+		}
+	}
+
+	&-pass {
+		font-size: 1rem;
+		margin-top: 2rem;
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
+		display: inline-block;
+		border-bottom: 1px solid $mainColor;
+	}
+
+	&-policy {
+		font-size: 1rem;
+		margin-top: 2rem;
+		text-align: center;
+	}
+}

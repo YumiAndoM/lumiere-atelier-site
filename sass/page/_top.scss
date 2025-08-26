@@ -1,0 +1,247 @@
+@use '../base/mixins' as *;
+@use '../base/variables' as *;
+
+/*=================================
+_top.scss
+=================================*/
+
+
+/*=================
+.hiro-section
+=================*/
+
+.hiro-section {
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	position: relative;
+
+	.mv-video {
+		position: absolute;
+		top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+		min-width: 100%;  // 親要素の幅と高さ、どちらか大きい方に合わせて
+  min-height: 100%; // 常に親要素を覆うようにする
+		width: auto;      // アスペクト比を維持するため
+		height: auto;     // autoに設定
+		opacity: 0.5;
+		z-index: -1;
+	}
+
+	.contents-block {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+
+		@include flexBox ($jC:center);
+		flex-direction: column;
+		gap: 3rem;
+		height: 100vh;
+		
+		h2 {
+			text-align: center;
+			font-size: 4rem;
+		}
+		p {
+			text-align: center;
+			font-size: 16px;
+		}
+	}
+}
+
+
+
+
+/*=================
+.lesson-section
+=================*/
+
+.lesson-section {
+	ul {
+		@include flexBox($aI: flex-start);
+		gap: 2rem;
+		margin-bottom: 6rem;
+
+
+		@include max(l) {
+			justify-content: space-between;
+			flex-wrap: wrap;
+		}
+
+		@include max(m) {
+			width: 100%;
+		}
+
+		li {
+			flex: 1;
+
+			@include max(l) {
+				width: calc(50% - 1rem);
+				flex: none;
+			}
+
+			@include max(m) {
+				width: 100%;
+			}
+
+
+			.lesson-list {
+			&-ttl {
+					text-align: center;
+					font-size: clamp(2rem, 1vw, 2.2rem);
+					margin-top: 1rem;
+				}
+
+				&-text {
+					text-align:justify;
+					margin-top: 1rem;
+				}
+			}
+		}
+	}
+}
+
+.lesson-page-link {
+	display: inline-block; // 親要素で中央寄せしやすくするため
+	position: relative;
+	padding-bottom: 1rem; // 矢印を配置するスペースを確保
+	text-decoration: none; // 下線を消す
+	font-weight: bold;
+	left: 50%;
+	transform: translateX(-50%);
+
+
+  &::before {	// 矢印の横棒（シャフト）
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 120%;
+    height: 2px;
+    background-color: $accentColor;
+  }
+
+	&::after {// 矢印の先端（ヘッド）
+		content: '';
+		position: absolute;
+		width: 12px;
+		height: 2px;
+		background-color: $accentColor;
+
+		// 位置と形の調整
+		bottom: 8px;
+		left: 115%; // 横棒の先端に合わせる
+		transform-origin: center left; // 回転の軸を左端中央に
+		transform: rotate(45deg);
+	}
+
+
+	  // ホバー時に、それぞれ別のアニメーションを適用
+  &:hover::before {
+    animation: stretch-shaft 0.8s ease-in-out infinite;
+  }
+  &:hover::after {
+    animation: move-and-sway-head 0.8s ease-in-out infinite; // ★ 呼び出すアニメーションを変更
+  }
+}
+
+// 左右に揺れるアニメーションを定義
+// 横棒用のアニメーション
+@keyframes stretch-shaft {
+  0%   { width: 120%; }
+  50%  { width: 129%; } // 5%分だけ伸ばす
+  100% { width: 120%; }
+}
+
+// 矢印の先端用のアニメーション
+@keyframes move-and-sway-head {
+  0% {
+    left: 115%; // 元のleft
+    transform: translateX(0) rotate(45deg);
+  }
+  50% {
+    left: 120%; // ★ 横棒が伸びた分(5%)だけ、leftの位置をずらす
+    transform: translateX(5px) rotate(45deg); // そこからさらに5px揺らす
+  }
+  100% {
+    left: 115%; // 元のleft
+    transform: translateX(0) rotate(45deg);
+  }
+}
+
+
+
+
+
+/*=================
+.commitment-section
+=================*/
+
+.commitment-section {
+	background-color: $subBgColor;
+	ul {
+		@include flexBox($aI: stretch);
+		gap: 6rem;
+
+
+		@include max(l) {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		li {
+			flex: 1;
+
+			@include max(l) {
+				width: 60%;
+
+				@include max(m) {
+					width: 100%;
+				}
+
+				&:nth-child(even) {
+					flex-direction: row-reverse;
+					flex: none;
+
+					@include max(l) {
+						&:nth-child(even) {
+								align-self: flex-end;
+						}
+					}
+				}
+			}
+
+			img {
+				aspect-ratio: 1;
+				border-radius: 100%;
+				margin-bottom: 1rem;
+				object-fit: cover;
+			}
+
+			h3 {
+				text-align: center;
+				margin-bottom: 1rem;
+				font-size: clamp(1.8rem, 1vw, 2rem);
+			}
+		}
+	}
+}
+
+
+
+
+
+/*=================
+.cta-section
+=================*/
+
+.cta-section {
+	a {
+		position: relative;
+		display: inline-block;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+

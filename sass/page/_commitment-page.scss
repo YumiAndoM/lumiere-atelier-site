@@ -1,0 +1,62 @@
+@use '../base/mixins' as *;
+@use '../base/variables' as *;
+
+/*=================================
+_commitment-page
+=================================*/
+
+.commitment-list-section {
+	
+
+	ul {
+		display: flex;
+		flex-direction: column;
+		padding-inline-start: 0;
+		gap: 6rem;
+		li {
+			@include flexBox;
+			gap: 4rem;
+
+
+			@include max(m) {
+				flex-direction: column;
+				gap: 2rem;
+			}
+
+			&:nth-child(even) {
+					flex-direction: row-reverse;
+
+					@include max(m) {
+						flex-direction: column;
+					}
+				}
+
+			.commitment-list-item {
+				flex: 1;
+
+				p {
+					text-align: justify;
+				}
+			}
+
+			h3 {
+				font-family: "Shippori Mincho", serif;
+				font-weight: 500;
+				font-style: normal;
+				margin-bottom: 2rem;
+				font-size: clamp(2.6rem, 1vw, 2.8rem);
+
+				@include max(m) {
+					font-size: clamp(2.4rem, 1vw, 2.6rem);
+					margin-bottom: 1rem;
+				}
+
+				span {
+				display: block;
+				color: $mainColor;
+				font-size: clamp(3.8rem, 1vw, 4rem);
+			}
+			}
+		}
+	}
+}

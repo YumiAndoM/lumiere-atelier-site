@@ -1,0 +1,88 @@
+@use '../base/mixins' as *;
+@use '../base/variables' as *;
+
+/*=================================
+_footer.scss
+=================================*/
+
+footer {
+
+	background-color: $subBgColor;
+	padding-top: 8rem;
+
+	.contents-block {
+		@include flexBox;
+		gap: 10rem;
+		padding-bottom: 4rem;
+		border-bottom: 1px solid $mainColor;
+
+		@include max(m) {
+			flex-direction: column;
+			align-items: center;
+			padding-bottom: 2rem;
+			gap: 5rem;
+		}
+
+
+		.footer-logo-block {
+
+			@include max(m) {
+					@include flexBox($aI: center);
+					flex-direction: column;
+				}
+			a {
+				width: 200px;
+				display: block;
+			}
+		}
+
+		nav {
+			@include flexBox($aI: start);
+			gap: 1rem;
+			flex: 1;
+
+			@include max(m) {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			ul {
+				flex: 1;
+				gap: 2rem;
+
+				@include max(m) {
+					flex: none;
+					margin-bottom: 3rem;
+				}
+
+				li {
+
+					&:nth-child(1) {
+						font-weight: bold;
+						margin-bottom: 2rem;
+					}
+					&:not(:first-child) {
+						margin-top: 1rem;
+					}
+
+
+					@include max(m) {
+						text-align: center;
+					}
+				}
+
+				a {
+					white-space: nowrap;
+				}
+			}
+		}
+	}
+
+	.footer-copy-right {
+		text-align: center;
+		font-size: 0.8rem;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+	}
+	
+}

@@ -1,0 +1,131 @@
+@use '../base/mixins' as *;
+@use '../base/variables' as *;
+
+/*=================================
+_journal-page
+=================================*/
+
+.journal-list {
+	&-section {
+
+		ul {
+			@include flexBox($aI: stretch);
+			gap: 3rem;
+
+
+			@include max(m) {
+				flex-direction: column;
+				gap: 6rem;
+			}
+
+			li {
+				flex: 1;
+
+				a {
+					display: flex;
+					flex-direction: column;
+					width: 100%;
+					height: 100%;
+					position: relative;
+					padding-bottom: 3rem;
+					transform: scale(100%);
+					transition: 0.4s ease-in-out;
+
+					.journal-list-img-block {
+						overflow: hidden;
+						border-radius: 20px;
+
+						img {
+							width: 100%;
+							display: block;
+							transition: 0.4s ease-in-out;
+						}
+					}
+
+					&:hover {
+						img {
+							transform: scale(120%);
+							transition: 0.4s ease-in-out;
+						}
+					}
+
+					&::before {	// 矢印の横棒（シャフト）
+							content: '';
+							position: absolute;
+							bottom: 0;
+							right: 1%;
+							width: 40%;
+							height: 2px;
+							background-color: $accentColor;
+					}
+
+					&::after {// 矢印の先端（ヘッド）
+						content: '';
+						position: absolute;
+						width: 12px;
+						height: 2px;
+						background-color: $accentColor;
+
+						// 位置と形の調整
+						bottom: 8px;
+						right: 0; // 横棒の先端に合わせる
+						transform-origin: center left; // 回転の軸を左端中央に
+						transform: rotate(45deg);
+					}
+				}
+			}
+		}
+	}
+
+	&-label {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		color: $accentColor;
+	}
+
+	&-text {
+		font-family: "Shippori Mincho", serif;
+  font-weight: 500;
+  font-style: normal;
+		text-align: justify;
+		margin-bottom: 2rem;
+		flex-grow: 1;
+
+
+		@include max(m) {
+			margin-bottom: 1rem;
+		}
+	}
+
+	// .arrow {
+	// 	position: relative;
+	// 	width: 50%;
+	// 	display: block;
+	// 	height: 20px;
+	// 	margin-top: auto; 
+
+	// 	&::before {	// 矢印の横棒（シャフト）
+ //    content: '';
+ //    position: absolute;
+ //    bottom: 0;
+ //    left: 0;
+ //    width: 120%;
+ //    height: 2px;
+ //    background-color: $accentColor;
+ //  }
+
+	// 	&::after {// 矢印の先端（ヘッド）
+	// 	content: '';
+	// 	position: absolute;
+	// 	width: 12px;
+	// 	height: 2px;
+	// 	background-color: $accentColor;
+
+	// 	// 位置と形の調整
+	// 	bottom: 8px;
+	// 	left: 115%; // 横棒の先端に合わせる
+	// 	transform-origin: center left; // 回転の軸を左端中央に
+	// 	transform: rotate(45deg);
+	// }
+	// }
+}

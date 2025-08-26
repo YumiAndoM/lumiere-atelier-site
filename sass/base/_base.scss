@@ -1,0 +1,188 @@
+@use 'mixins' as *;
+@use 'variables' as *;
+
+
+
+/*=================================
+_base.scss
+=================================*/
+
+/*ベース設定*/
+* {
+	color: $fontColor;
+	// border: 1px solid red !important;
+}
+
+/*物差しを作る（1rem = 10px になるように設定）*/
+html {
+  font-size: 62.5%;
+}
+
+
+/* =================================
+ページ遷移時のフェードインアニメーション
+================================= */
+
+body {
+  // ★ JavaScriptでis-loadedクラスが付与されたら、アニメーションを開始
+  &.is-loaded {
+    animation: fadeIn 1s ease-out forwards;
+  }
+}
+
+// ★ フェードイン用のアニメーションを定義
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+
+/* =================================
+全頁対象
+================================= */
+
+
+
+h2 {
+	font-family: "Shippori Mincho", serif;
+  font-weight: 700;
+  font-style: normal;
+		font-size: clamp(3.4rem, 1vw, 3.6rem);
+		text-align: center;
+
+		@include max(l) {
+			font-size: clamp(3rem, 1vw, 3.2rem);
+		}
+
+		@include max(m) {
+			font-size: clamp(2.4rem, 1vw, 2.6rem);
+			white-space: nowrap;
+		}
+}
+
+.sub-title {//h2下のテキスト設定
+text-align: center;
+margin-top: 1rem;
+margin-bottom: 6rem;//サブタイトル下のcontents-blockとの余白
+}
+
+h3 {
+	
+	font-family: "Shippori Mincho", serif;
+	font-weight: 500;
+	font-style: normal;
+	
+}
+
+
+// 全体背景グラデーション
+body,
+header {
+	background-image: linear-gradient(90deg, #FDFBF6, #FFEEDD);
+}
+
+//全体のコンテンツエリア指定
+.contents-block {
+	width: 70%;
+	max-width: 1200px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+
+	@include max(xl) {
+		width: 80%;
+	}
+
+	@include max(m) {
+		width: 90%;
+	}
+}
+
+//全体のリストスタイルなしに
+ul,
+ol {
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+//フォントサイズ
+p,
+li a,
+button,
+li {
+	font-size: clamp(1.4rem, 1vw, 1.6rem);
+}
+
+a {
+	font-size: clamp(1.8rem, 1vw, 2rem);
+
+	@include max(l) {
+		font-size: clamp(1.4rem, 1vw, 1.6rem)
+	}
+}
+
+
+
+
+.no-br {
+	white-space: no-wrap;
+	@include max(m) {
+		& + .no-br::before {
+    content: "\A"; // \A は改行コード
+    white-space: pre; // 改行コードを有効にする
+  }
+	}
+}
+
+
+//cta
+.cta {
+	@include cta;
+
+	&:hover {
+		@include cta-hover;
+	}
+}
+
+//メインビジュアル（ヒーローセクション以外）の余白設定
+section:not(.hiro-section, .login-section){
+	padding-top: 12rem;
+	padding-bottom: 8rem;
+}
+
+
+
+//フェードアップ
+/* 1. アニメーション前の「隠れた状態」を定義するトリガークラス */
+	/* 1. アニメーション前の「隠れた状態」を定義するトリガークラス */
+	.fade-up-trigger {
+		opacity: 0;
+		transform: translateY(50px); /* 少し下に配置 */
+		transition: opacity 0.8s ease, transform 0.8s ease;
+	}
+
+	/* 2. JavaScriptによって付与される、アニメーション後の「表示された状態」のクラス */
+	.fade-up-trigger.is-active {
+		opacity: 1;
+		transform: translateY(0); /* 元の位置に戻す */
+	}
+	
+	/* ★ 3. 時間差を作るための遅延クラスを追加 */
+	.delay-1 {
+		transition-delay: 0.2s;
+	}
+	.delay-2 {
+		transition-delay: 0.4s;
+	}
+	.delay-3 {
+		transition-delay: 0.6s;
+	}
