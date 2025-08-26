@@ -1,0 +1,64 @@
+# GitHub Actionsの名前
+name: Deploy Vite site to Pages
+
+# どのタイミングで実行するか
+on:
+  # mainブランチにpushされた時だけ実行
+  push:
+    branches: [main]
+  # Actionsタブから手動で実行することも可能にする
+  workflow_dispatch:
+
+# 実行する権限を設定
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 古いワークフローが動いていたらキャンセルする設定
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+# 実行する具体的な仕事内容
+jobs:
+  # "deploy"という名前の仕事
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      # 1. リポジトリのソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Node.jsの環境をセットアップ
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # あなたのNode.jsバージョンに合わせて
+          cache: npm
+
+      # 3. 必要なプログラムをインストール
+      - name: Install dependencies
+        run: npm install
+
+      # 4. サイトをビルド（distフォルダを作成）
+      - name: Build
+        run: npm run build
+
+      # 5. GitHub Pagesにアップロードする準備
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 6. ビルドされた成果物（distフォルダ）をアップロード
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      # 7. サイトをデプロイ（公開）
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
